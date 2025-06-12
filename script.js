@@ -32,8 +32,37 @@ function loadPets(){
     }
 }
 
+function loadFeaturedPets() {
+    const featuredPets = document.getElementById('featured-pets');
+    // Find first dog
+    const dog = pets.find(pet => pet.type === "Dog");
+    // Find first cat
+    const cat = pets.find(pet => pet.type === "Cat");
+    const featuredArray = [ dog, cat ];
+
+    featuredArray.forEach(pet => {
+        featuredPets.innerHTML += `
+            <div class="pet">
+                <img src="${pet.img}" alt="Cute ${pet.type}">
+                <h3>${pet.name}</h3>
+                <p>Age: ${pet.age} years</p>
+                <p>${pet.type}</p>
+                <button onclick="adoptPet()">Adopt Now</button>
+            </div>
+        `;
+    });
+}
+
 function adoptPet() {
     alert("Thank you for your interest in adopting! Our team will contact you soon.");
 }
 
-loadPets();
+// Only call loadPets if pet-list exists
+if (document.getElementById('pet-list')) {
+    loadPets();
+}
+
+// Only call loadFeaturedPets if featured-pets exists
+if (document.getElementById('featured-pets')) {
+    loadFeaturedPets();
+}
